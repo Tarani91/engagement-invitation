@@ -256,12 +256,12 @@ body {
 .envelope-wrapper.is-open .gatefold-door {
   pointer-events: none !important;
   visibility: hidden;
-  transition: opacity 0.8s ease, visibility 0s 0.8s;
 }
 
 .envelope-wrapper.is-open .wax-seal-wrapper {
   pointer-events: none !important;
-  display: none !important;
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* ==========================================================================

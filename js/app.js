@@ -919,8 +919,6 @@
     playPaperUnfoldSound();
     playGoldenChimeSound();
 
-    envelopeWrapper.classList.add('is-open');
-
     // Immediately disable door pointer events so they never block the card
     doorLeft.style.pointerEvents = 'none';
     doorRight.style.pointerEvents = 'none';
@@ -967,6 +965,11 @@
 
       // Flaps gently tuck away
       tl.to([doorLeft, doorRight], { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.85);
+
+      // Mark is-open once doors are open and seal has flown away
+      tl.add(() => {
+        envelopeWrapper.classList.add('is-open');
+      }, 1.5);
 
       // 4. Inner card smoothly comes forward
       tl.fromTo(innerCard, { scale: 0.96 }, { scale: 1.0, duration: 1.2, ease: 'power2.out' }, 0.25);
