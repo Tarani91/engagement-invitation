@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Engagement Invitation | Blessy &amp; Rufus</title>
+  
+  <!-- Luxury Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- GSAP for Smooth Letter-by-Letter Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="envelope-closed">
+
+  <!-- Ambient Backdrop with Golden Floating Dust -->
+  <div class="ambient-backdrop">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <canvas id="particles-canvas"></canvas>
+  </div>
+
+  <!-- =========================================================================
+       HERO ENVELOPE OPENING VIEWPORT (Full Screen Mobile)
+       ========================================================================= -->
+  <header class="envelope-viewport" id="envelopeViewport">
+    <div class="card-scene" id="cardScene">
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        
+        <!-- ===================================================================
+             REVEALED INNER CARD: MULTI-SECTION STORY
+             Stage 0: Announcement -> Stage 1: BLESSY & RUFUS -> Stage 2: Date & Time
+             =================================================================== -->
+        <article class="inner-invitation-card" id="innerCard">
+          
+          <!-- SECTION 1: HERO & COUPLE (Background image.jpg) -->
+          <section class="card-section section-hero" id="sectionHero">
+            <!-- Cinematic Background Layer (Smooth Zoom In/Out) -->
+            <div class="card-bg-layer" id="cardBgLayer"></div>
+
+            <!-- Pinned Content Stage -->
+            <div class="card-stage" id="cardStage">
+              
+              <!-- STAGE LAYER 1: THE ANNOUNCEMENT -->
+              <div class="stage-layer layer-announcement" id="layerAnnouncement">
+                <p class="intro-line line-1" id="line1">
+                  <span class="word">With</span>
+                  <span class="word">great</span>
+                  <span class="word">pleasure</span>
+                  <span class="word">and</span>
+                  <span class="word">heartfelt</span>
+                  <span class="word">joy,</span>
+                </p>
+                
+                <p class="intro-line line-2" id="line2">
+                  <span class="word">we</span>
+                  <span class="word">invite</span>
+                  <span class="word">you</span>
+                  <span class="word">to</span>
+                  <span class="word">join</span>
+                  <span class="word">us</span>
+                  <span class="word">for</span>
+                  <span class="word">the</span>
+                </p>
+                
+                <div class="title-wrap" id="titleWrap">
+                  <h1 class="grand-ceremony-title" id="ceremonyTitle">
+                    <span class="word word-title">Engagement</span>
+                    <span class="word word-title">Ceremony</span>
+                  </h1>
+                </div>
+
+                <p class="intro-line line-3" id="line3">
+                  <span class="word word-of">of</span>
+                </p>
+              </div>
+
+              <!-- STAGE LAYER 2: LETTER-BY-LETTER COUPLE REVEAL -->
+              <div class="stage-layer layer-couple" id="layerCouple">
+                <div class="couple-pure-names" id="coupleNamesWrap">
+                  
+                  <!-- BLESSY: Letter by Letter -->
+                  <div class="name-row bride-row" id="brideRow">
+                    <span class="letter">B</span>
+                    <span class="letter">L</span>
+                    <span class="letter">E</span>
+                    <span class="letter">S</span>
+                    <span class="letter">S</span>
+                    <span class="letter">Y</span>
+                  </div>
+
+                  <!-- & Golden Calligraphy -->
+                  <div class="ampersand-row" id="ampersandRow">
+                    <span class="letter ampersand-char">&amp;</span>
+                  </div>
+
+                  <!-- RUFUS: Letter by Letter -->
+                  <div class="name-row groom-row" id="groomRow">
+                    <span class="letter">R</span>
+                    <span class="letter">U</span>
+                    <span class="letter">F</span>
+                    <span class="letter">U</span>
+                    <span class="letter">S</span>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ===================================================================
+               SECTION 2: DATE & TIME (For date.jpg)
+               =================================================================== -->
+          <section class="card-section section-datetime" id="sectionDateTime">
+            <!-- Background Layer (For date.jpg) -->
+            <div class="date-bg-layer" id="dateBgLayer"></div>
+            <div class="date-glow-overlay"></div>
+
+            <!-- Date & Time Stage -->
+            <div class="date-content-stage" id="dateContentStage">
+              
+              <!-- 1. BIG GRAND HEADING (Word by Word) -->
+              <h2 class="save-the-date-heading" id="saveDateHeading">
+                <span class="save-word">Save</span>
+                <span class="save-word">the</span>
+                <span class="save-word">Date</span>
+              </h2>
+
+              <!-- 2. ROLLING COUNTER FOR DATE: 3 DECEMBER 2026 -->
+              <div class="rolling-counter-board" id="rollingCounterBoard">
+                
+                <!-- DAY ROLLER -->
+                <div class="counter-column col-day">
+                  <div class="reel-window">
+                    <div class="reel-strip" id="reelDay">
+                      <div class="reel-item">28</div>
+                      <div class="reel-item">29</div>
+                      <div class="reel-item">30</div>
+                      <div class="reel-item">01</div>
+                      <div class="reel-item">02</div>
+                      <div class="reel-item target-item">03</div>
+                    </div>
+                  </div>
+                  <span class="column-tag">DAY</span>
+                </div>
+
+                <div class="counter-divider">•</div>
+
+                <!-- MONTH ROLLER -->
+                <div class="counter-column col-month">
+                  <div class="reel-window">
+                    <div class="reel-strip" id="reelMonth">
+                      <div class="reel-item">AUG</div>
+                      <div class="reel-item">SEP</div>
+                      <div class="reel-item">OCT</div>
+                      <div class="reel-item">NOV</div>
+                      <div class="reel-item target-item">DECEMBER</div>
+                    </div>
+                  </div>
+                  <span class="column-tag">MONTH</span>
+                </div>
+
+                <div class="counter-divider">•</div>
+
+                <!-- YEAR ROLLER -->
+                <div class="counter-column col-year">
+                  <div class="reel-window">
+                    <div class="reel-strip" id="reelYear">
+                      <div class="reel-item">2022</div>
+                      <div class="reel-item">2023</div>
+                      <div class="reel-item">2024</div>
+                      <div class="reel-item">2025</div>
+                      <div class="reel-item target-item">2026</div>
+                    </div>
+                  </div>
+                  <span class="column-tag">YEAR</span>
+                </div>
+
+              </div>
+
+              <!-- 3. DAY OF WEEK -->
+              <p class="date-day-subtitle" id="dateDaySubtitle">THURSDAY</p>
+
+              <!-- 4. TIME DISPLAY NEATLY ALIGNED -->
+              <div class="date-time-clean" id="dateTimeClean">
+                <span class="time-clock-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="time-label">11:00 AM</span>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ===================================================================
+               SECTION 3: VENUE & LOCATION (map background.jpg)
+               =================================================================== -->
+          <section class="card-section section-location" id="sectionLocation">
+            <!-- Background Layer (map background.jpg) -->
+            <div class="location-bg-layer" id="locationBgLayer"></div>
+            <div class="location-mist-overlay"></div>
+
+            <!-- Location Stage -->
+            <div class="location-content-stage" id="locationContentStage">
+              
+              <!-- SECTION HEADING -->
+              <h2 class="location-heading" id="locationHeading">
+                The Venue
+              </h2>
+
+              <p class="location-kicker" id="locationKicker">JOIN US AT</p>
+
+              <!-- VENUE CARD -->
+              <div class="location-card" id="locationCard">
+                <div class="venue-pin-badge" id="venuePinBadge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                </div>
+
+                <h3 class="venue-name" id="venueName">Kingston Residency</h3>
+                <p class="venue-city" id="venueCity">BANGALORE</p>
+
+                <div class="venue-divider" id="venueDivider">
+                  <span class="v-line"></span>
+                  <span class="v-gem">❖</span>
+                  <span class="v-line"></span>
+                </div>
+
+                <p class="venue-address" id="venueAddress">
+                  Kanakasree Housing Society, Kannuru,<br>
+                  Bengaluru, Karnataka 560077
+                </p>
+
+                <!-- GET DIRECTIONS BUTTON (Opens Google Maps) -->
+                <a href="https://maps.google.com/?q=Kingston+Residency,+Kanakasree+Housing+Society,+Kannuru,+Bengaluru,+Karnataka+560077" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-directions" 
+                   id="btnDirections">
+                  <span class="directions-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                    </svg>
+                  </span>
+                  <span>GET DIRECTIONS</span>
+                  <span class="btn-sheen-sweep"></span>
+                </a>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ===================================================================
+               SECTION 4: LIVE COUNTDOWN (Countdown background.jpg)
+               =================================================================== -->
+          <section class="card-section section-countdown" id="sectionCountdown">
+            <!-- Background Layer (Countdown background.jpg) -->
+            <div class="countdown-bg-layer" id="countdownBgLayer"></div>
+            <div class="countdown-water-overlay"></div>
+
+            <!-- Stage Content -->
+            <div class="countdown-content-stage" id="countdownContentStage">
+              <!-- SECTION HEADING -->
+              <h2 class="countdown-heading" id="countdownHeading">
+                Counting Down
+              </h2>
+
+              <p class="countdown-kicker" id="countdownKicker">FOREVER BEGINS IN</p>
+
+              <!-- COUNTDOWN CARD -->
+              <div class="countdown-card" id="countdownCard">
+                <div class="countdown-grid" id="countdownGrid">
+                  <div class="countdown-unit" id="unitDays">
+                    <div class="unit-number-box">
+                      <span class="unit-val" id="cdDays">00</span>
+                    </div>
+                    <span class="unit-label">DAYS</span>
+                  </div>
+
+                  <div class="countdown-separator">:</div>
+
+                  <div class="countdown-unit" id="unitHours">
+                    <div class="unit-number-box">
+                      <span class="unit-val" id="cdHours">00</span>
+                    </div>
+                    <span class="unit-label">HOURS</span>
+                  </div>
+
+                  <div class="countdown-separator">:</div>
+
+                  <div class="countdown-unit" id="unitMins">
+                    <div class="unit-number-box">
+                      <span class="unit-val" id="cdMins">00</span>
+                    </div>
+                    <span class="unit-label">MINS</span>
+                  </div>
+
+                  <div class="countdown-separator">:</div>
+
+                  <div class="countdown-unit" id="unitSecs">
+                    <div class="unit-number-box">
+                      <span class="unit-val" id="cdSecs">00</span>
+                    </div>
+                    <span class="unit-label">SECS</span>
+                  </div>
+                </div>
+
+                <div class="countdown-divider" id="countdownDivider">
+                  <span class="cd-line"></span>
+                  <span class="cd-gem">✦</span>
+                  <span class="cd-line"></span>
+                </div>
+
+                <p class="countdown-tagline" id="countdownTagline">
+                  Until We Begin Our Happily Ever After
+                </p>
+
+                <p class="countdown-couple-sign" id="countdownCoupleSign">
+                  Blessy &amp; Rufus
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ===================================================================
+               SECTION 5: BLESSING QUOTE & CLOSING (Countdown Background 2.jpg)
+               =================================================================== -->
+          <section class="card-section section-closing" id="sectionClosing">
+            <!-- Background Layer (Countdown Background 2.jpg) -->
+            <div class="closing-bg-layer" id="closingBgLayer"></div>
+            <div class="closing-rose-overlay"></div>
+
+            <!-- Stage Content -->
+            <div class="closing-content-stage" id="closingContentStage">
+              <!-- SECTION HEADING -->
+              <h2 class="closing-heading" id="closingHeading">
+                With Blessings
+              </h2>
+
+              <p class="closing-kicker" id="closingKicker">A SACRED PROMISE</p>
+
+              <!-- CLOSING GLASS CARD -->
+              <div class="closing-card" id="closingCard">
+                <div class="scripture-badge" id="scriptureBadge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </div>
+
+                <!-- BIBLE QUOTE -->
+                <blockquote class="closing-quote" id="closingQuote">
+                  &ldquo;The Lord Will Indeed Give What Is Good&rdquo;
+                </blockquote>
+                
+                <p class="closing-reference" id="closingReference">
+                  — Psalm 85:12 —
+                </p>
+
+                <div class="closing-divider" id="closingDivider">
+                  <span class="cl-line"></span>
+                  <span class="cl-gem">❖</span>
+                  <span class="cl-line"></span>
+                </div>
+
+                <!-- HEARTFELT END MESSAGE -->
+                <p class="closing-message" id="closingMessage">
+                  With hearts full of love, joy, and gratitude,<br>
+                  we look forward to celebrating this blessed beginning with you.
+                </p>
+
+                <p class="closing-signature" id="closingSignature">
+                  Blessy &amp; Rufus
+                </p>
+
+                <!-- CLOSE / REPLAY BUTTON -->
+                <button type="button" class="btn-close-envelope" id="btnCloseEnvelope">
+                  <span class="btn-close-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  </span>
+                  <span>CLOSE &amp; REPLAY</span>
+                  <span class="btn-sheen-sweep"></span>
+                </button>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Bouncing Scroll Down Prompt / Action Badge -->
+          <div class="scroll-prompt-badge" id="scrollPrompt" role="button" tabindex="0" aria-label="Advance Section">
+            <span class="prompt-text" id="promptText">SCROLL TO REVEAL</span>
+            <span class="prompt-arrow" id="promptArrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </div>
+
+          <!-- Virtual Scroll Track (Silky Smooth Native Mobile Momentum Scrolling) -->
+          <div class="scroll-track" id="scrollTrack">
+            <div class="scroll-spacer"></div>
+          </div>
+
+        </article>
+
+        <!-- GATEFOLD FLAP: LEFT DOOR -->
+        <div class="gatefold-door door-left" id="doorLeft">
+          <div class="door-inner">
+            <img src="Opening invitation card/door-left-clean.png" alt="Left Flap" class="door-img">
+            <div class="door-shadow-overlay"></div>
+            <div class="door-sheen-overlay"></div>
+          </div>
+        </div>
+
+        <!-- GATEFOLD FLAP: RIGHT DOOR -->
+        <div class="gatefold-door door-right" id="doorRight">
+          <div class="door-inner">
+            <img src="Opening invitation card/door-right-clean.png" alt="Right Flap" class="door-img">
+            <div class="door-shadow-overlay"></div>
+            <div class="door-sheen-overlay"></div>
+          </div>
+        </div>
+
+        <!-- CENTER SEAM SHADOW -->
+        <div class="center-seam" id="centerSeam"></div>
+
+        <!-- WAX SEAL BUTTON -->
+        <div class="wax-seal-wrapper" id="waxSealWrapper" role="button" tabindex="0" aria-label="Tap to Open Invitation">
+          <div class="seal-glow"></div>
+          <img src="Opening invitation card/wax-seal-clean.png" alt="Golden Wax Seal" class="wax-seal-img" id="waxSealImg">
+          
+          <div class="tap-hint" id="tapHint">
+            <span class="hint-pulse"></span>
+            <span class="hint-text">TAP TO OPEN</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       FLOATING CONTROLS (Replay & Sound Toggle)
+       ========================================================================= -->
+  <aside class="floating-controls" id="floatingControls">
+    <button class="control-btn" id="replayBtn" title="Replay Envelope Opening">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <path d="M3 3v5h5"/>
+      </svg>
+      <span>Replay</span>
+    </button>
+
+    <button class="control-btn" id="soundToggleBtn" title="Sound">
+      <svg id="soundIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+      <svg id="soundIconOff" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+    </button>
+  </aside>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

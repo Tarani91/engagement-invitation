@@ -1,0 +1,10 @@
+# Generated screenshots and test captures
+*preview*.png
+*screenshot*.png
+venue_screenshot.png
+
+# Dev server and temporary files
+server.py
+.netlify/
+.DS_Store
+Thumbs.db
