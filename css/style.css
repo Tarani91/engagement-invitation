@@ -1837,11 +1837,11 @@ body {
    FLOATING ACTION BUTTONS � enhanced hover
    ========================================================================== */
 .floating-controls {
+  display: none !important;
   position: fixed;
   bottom: calc(env(safe-area-inset-bottom, 12px) + 12px);
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  display: flex;
   align-items: center;
   gap: 10px;
   z-index: 50;
@@ -1851,8 +1851,9 @@ body {
 }
 
 .floating-controls.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
   transform: translateX(-50%) translateY(0);
 }
 

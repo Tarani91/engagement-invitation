@@ -976,7 +976,7 @@
 
       // Floating controls appear
       tl.add(() => {
-        floatingControls.classList.add('is-visible');
+        if (floatingControls) floatingControls.classList.add('is-visible');
       }, 1.2);
 
       // 5. SLOW, LUXURIOUS & SMOOTH GREETING REVEAL
@@ -1057,7 +1057,7 @@
       setTimeout(() => {
         isOpen = true;
         isAnimating = false;
-        floatingControls.classList.add('is-visible');
+        if (floatingControls) floatingControls.classList.add('is-visible');
         if (scrollPrompt) scrollPrompt.classList.add('is-visible');
         if (scrollTrack) scrollTrack.scrollTop = 0;
       }, 4200);
@@ -1070,7 +1070,7 @@
     initAudioContext();
     playPaperUnfoldSound();
 
-    floatingControls.classList.remove('is-visible');
+    if (floatingControls) floatingControls.classList.remove('is-visible');
     if (scrollPrompt) scrollPrompt.classList.remove('is-visible');
     if (scrollTrack) scrollTrack.scrollTop = 0;
 
@@ -1163,22 +1163,24 @@
 
   doorLeft.addEventListener('click', () => { if (!isOpen) openEnvelope(); });
   doorRight.addEventListener('click', () => { if (!isOpen) openEnvelope(); });
-  replayBtn.addEventListener('click', resetEnvelope);
+  if (replayBtn) replayBtn.addEventListener('click', resetEnvelope);
   if (btnCloseEnvelope) {
     btnCloseEnvelope.addEventListener('click', resetEnvelope);
   }
 
-  soundToggleBtn.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    if (soundEnabled) {
-      soundIconOn.classList.remove('hidden');
-      soundIconOff.classList.add('hidden');
-      initAudioContext();
-    } else {
-      soundIconOn.classList.add('hidden');
-      soundIconOff.classList.remove('hidden');
-    }
-  });
+  if (soundToggleBtn) {
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        if (soundIconOn) soundIconOn.classList.remove('hidden');
+        if (soundIconOff) soundIconOff.classList.add('hidden');
+        initAudioContext();
+      } else {
+        if (soundIconOn) soundIconOn.classList.add('hidden');
+        if (soundIconOff) soundIconOff.classList.remove('hidden');
+      }
+    });
+  }
 
   // =========================================================================
   // AMBIENT GOLD DUST PARTICLES
