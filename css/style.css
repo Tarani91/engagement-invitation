@@ -7,9 +7,10 @@
   /* =========================================================================
      EASY POSITION CONTROLS (UP & DOWN):
      Adjust these values independently to position each section exactly where you want!
-     - DECREASE % (e.g. 16%, 18%, 20%) = Moves the section HIGHER UP
-     - INCREASE % (e.g. 24%, 26%, 30%) = Moves the section LOWER DOWN
+     - DECREASE % (e.g. 45%, 48%) = Moves the section HIGHER UP
+     - INCREASE % (e.g. 52%, 55%) = Moves the section LOWER DOWN
      ========================================================================= */
+  --wax-seal-top: 50%;
   --announcement-top: 35%;
   --couple-names-top: 35%;
   --date-content-top: 45%;
@@ -133,11 +134,10 @@ body {
    ENVELOPE VIEWPORT (Full Screen Edge-to-Edge)
    ========================================================================== */
 .envelope-viewport {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -161,7 +161,6 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  height: 100dvh;
   margin: 0;
   padding: 0;
   transform-style: preserve-3d;
@@ -270,7 +269,7 @@ body {
    ========================================================================== */
 .wax-seal-wrapper {
   position: absolute;
-  top: 50%;
+  top: var(--wax-seal-top, 50%);
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(34vw, 150px);
@@ -385,7 +384,6 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  height: 100dvh;
   z-index: 5;
   background-color: #f7f2e7;
   overflow: hidden;
