@@ -767,70 +767,118 @@
   }
 
   // =========================================================================
-  // SILKY SMOOTH VIRTUAL TRACK MOMENTUM SCROLLING (Morning Native Physics)
-  // Continuous scroll mapping + mobile inertia + prompt badge navigation
+  // SILKY SMOOTH SLIDE-LOCKED GESTURE NAVIGATION (1 Scroll/Swipe = 1 Slide)
+  // Perfectly balanced: Responds immediately on the 1st scroll, zero multi-slide skipping
   // =========================================================================
-  function initScrollBehavior() {
-    if (!scrollTrack) return;
+  let isStageTransitioning = false;
+  let stageLockTimer = null;
 
-    let isScrollTicking = false;
+  function lockTransition(ms = 700) {
+    isStageTransitioning = true;
+    clearTimeout(stageLockTimer);
+    stageLockTimer = setTimeout(() => {
+      isStageTransitioning = false;
+    }, ms);
+  }
 
-    function handleTrackScroll() {
-      if (!isOpen) return;
-      const maxScroll = scrollTrack.scrollHeight - scrollTrack.clientHeight;
-      if (maxScroll <= 0) return;
-      const progress = scrollTrack.scrollTop / maxScroll;
-
-      let targetStage = 0;
-      if (progress < 0.13) {
-        targetStage = 0;
-      } else if (progress < 0.32) {
-        targetStage = 1;
-      } else if (progress < 0.52) {
-        targetStage = 2;
-      } else if (progress < 0.72) {
-        targetStage = 3;
-      } else if (progress < 0.90) {
-        targetStage = 4;
-      } else {
-        targetStage = 5;
-      }
-
-      if (targetStage !== currentStage) {
-        setStage(targetStage);
-      }
+  function goToNextStage() {
+    if (!isOpen || isStageTransitioning) return;
+    if (currentStage < 5) {
+      lockTransition(700);
+      setStage(currentStage + 1);
     }
+  }
 
-    // 1. Continuous scroll on the native virtual track (delivers 60/120fps buttery momentum)
-    scrollTrack.addEventListener('scroll', () => {
-      if (!isScrollTicking) {
-        requestAnimationFrame(() => {
-          handleTrackScroll();
-          isScrollTicking = false;
-        });
-        isScrollTicking = true;
+  function goToPrevStage() {
+    if (!isOpen || isStageTransitioning) return;
+    if (currentStage > 0) {
+      lockTransition(700);
+      setStage(currentStage - 1);
+    }
+  }
+
+  function initScrollBehavior() {
+    let wheelDeltaAccumulator = 0;
+    let wheelResetTimer = null;
+
+    // 1. Desktop Mouse Wheel & Trackpad (Instant 1st scroll response + inertia protection)
+    window.addEventListener('wheel', (e) => {
+      if (!isOpen) return;
+
+      if (isStageTransitioning) {
+        wheelDeltaAccumulator = 0;
+        return;
+      }
+
+      wheelDeltaAccumulator += e.deltaY;
+
+      const WHEEL_THRESHOLD = 25; // Triggers instantly on the very first scroll notch
+      if (wheelDeltaAccumulator >= WHEEL_THRESHOLD) {
+        wheelDeltaAccumulator = 0;
+        goToNextStage();
+      } else if (wheelDeltaAccumulator <= -WHEEL_THRESHOLD) {
+        wheelDeltaAccumulator = 0;
+        goToPrevStage();
+      }
+
+      clearTimeout(wheelResetTimer);
+      wheelResetTimer = setTimeout(() => {
+        wheelDeltaAccumulator = 0;
+      }, 150);
+    }, { passive: true });
+
+    // 2. Mobile & Tablet Touch Swipes (Smooth 1-swipe = 1-slide)
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let isTouchActive = false;
+
+    window.addEventListener('touchstart', (e) => {
+      if (!isOpen || e.touches.length !== 1) return;
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      isTouchActive = true;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isOpen || !isTouchActive) return;
+      const diffY = touchStartY - e.touches[0].clientY;
+      const diffX = touchStartX - e.touches[0].clientX;
+      if (Math.abs(diffY) > Math.abs(diffX) && e.cancelable) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    window.addEventListener('touchend', (e) => {
+      if (!isOpen || !isTouchActive) return;
+      isTouchActive = false;
+      if (isStageTransitioning) return;
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+
+      const deltaY = touchStartY - e.changedTouches[0].clientY;
+      const deltaX = touchStartX - e.changedTouches[0].clientX;
+
+      // Vertical swipe with threshold of 35px
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 35) {
+        if (deltaY > 0) {
+          // Swiped up -> Advance to next slide
+          goToNextStage();
+        } else {
+          // Swiped down -> Previous slide
+          goToPrevStage();
+        }
       }
     }, { passive: true });
 
-    // 2. Click prompt badge to advance smoothly to next section (or close envelope at end)
+    // 3. Prompt Badge Click
     if (scrollPrompt) {
       scrollPrompt.addEventListener('click', (e) => {
         e.stopPropagation();
         if (!isOpen) return;
         if (currentStage === 5) {
           resetEnvelope();
-          return;
+        } else {
+          goToNextStage();
         }
-        const maxScroll = scrollTrack.scrollHeight - scrollTrack.clientHeight;
-        const targets = [
-          maxScroll * 0.22,  // to Stage 1 (Couple)
-          maxScroll * 0.42,  // to Stage 2 (Date & Time)
-          maxScroll * 0.62,  // to Stage 3 (Venue)
-          maxScroll * 0.82,  // to Stage 4 (Countdown)
-          maxScroll          // to Stage 5 (Closing)
-        ];
-        const nextTarget = targets[currentStage] ?? 0;
-        scrollTrack.scrollTo({ top: nextTarget, behavior: 'smooth' });
       });
 
       scrollPrompt.addEventListener('keydown', (e) => {
@@ -841,31 +889,20 @@
       });
     }
 
-    // 3. Desktop Mouse Wheel on outer window (smoothly drives virtual track)
-    window.addEventListener('wheel', (e) => {
-      if (!isOpen) return;
-      if (!scrollTrack.contains(e.target)) {
-        scrollTrack.scrollTop += e.deltaY;
-      }
-    }, { passive: true });
-
-    // 4. Keyboard Arrow Keys & PageDown/PageUp
+    // 4. Keyboard Navigation (Down / Up / Space / PageDown / PageUp)
     window.addEventListener('keydown', (e) => {
       if (!isOpen) return;
       if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
-      const maxScroll = scrollTrack.scrollHeight - scrollTrack.clientHeight;
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
         e.preventDefault();
         if (currentStage === 5) {
           resetEnvelope();
-          return;
+        } else {
+          goToNextStage();
         }
-        const targets = [maxScroll * 0.22, maxScroll * 0.42, maxScroll * 0.62, maxScroll * 0.82, maxScroll];
-        scrollTrack.scrollTo({ top: targets[currentStage] ?? 0, behavior: 'smooth' });
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         e.preventDefault();
-        const targets = [0, 0, maxScroll * 0.22, maxScroll * 0.42, maxScroll * 0.62, maxScroll * 0.82];
-        scrollTrack.scrollTo({ top: targets[currentStage] ?? 0, behavior: 'smooth' });
+        goToPrevStage();
       }
     });
   }
