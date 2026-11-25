@@ -43,8 +43,10 @@
   /* Cinematic Background Zoom (1.0 = normal, 1.09 = elegant slow cinematic zoom) */
   --bg-zoom-level: 1.09;
 
-  --emerald-deep: #05140d;
-  --emerald-rich: #0b2217;
+  --lavender-deep: #211333;
+  --lavender-rich: #382154;
+  --emerald-deep: #211333;
+  --emerald-rich: #382154;
   --text-primary: #153324;
   --text-secondary: #244935;
 
@@ -91,7 +93,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(circle at 50% 45%, #0f2c1f 0%, #05140d 80%, #020705 100%);
+  background: radial-gradient(circle at 50% 45%, #3c245c 0%, #211333 80%, #120a1c 100%);
   pointer-events: none;
 }
 
@@ -109,7 +111,7 @@ body {
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, rgba(11, 34, 23, 0) 70%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, rgba(60, 36, 92, 0) 70%);
 }
 
 .orb-2 {
@@ -118,7 +120,7 @@ body {
   bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(23, 66, 47, 0.35) 0%, rgba(5, 20, 13, 0) 70%);
+  background: radial-gradient(circle, rgba(138, 92, 196, 0.35) 0%, rgba(33, 19, 51, 0) 70%);
 }
 
 #particles-canvas {
@@ -326,7 +328,7 @@ body {
   display: flex;
   align-items: center;
   gap: 7px;
-  background: rgba(5, 20, 13, 0.92);
+  background: rgba(38, 22, 58, 0.92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(212, 175, 55, 0.55);
@@ -1731,7 +1733,7 @@ body {
 
 @media (min-width: 600px) {
   .envelope-viewport {
-    background: radial-gradient(circle at 50% 45%, #0f2c1f 0%, #05140d 80%, #020705 100%);
+    background: radial-gradient(circle at 50% 45%, #3c245c 0%, #211333 80%, #120a1c 100%);
   }
 
   .card-scene {
@@ -1746,7 +1748,7 @@ body {
     height: 94%;
     max-height: 840px;
     border-radius: 12px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(186, 155, 230, 0.22);
   }
 
   .door-left {

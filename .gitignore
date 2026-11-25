@@ -8,3 +8,6 @@ server.py
 .netlify/
 .DS_Store
 Thumbs.db
+
+*-backup.png
+*.bak
